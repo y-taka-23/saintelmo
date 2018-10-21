@@ -1,7 +1,10 @@
 module Main exposing (main)
 
 import Browser
-import Html exposing (Html, div, text)
+import SaintElmo.Model exposing (Model, Msg)
+import SaintElmo.Subscription exposing (subscriptions)
+import SaintElmo.Update exposing (update)
+import SaintElmo.View exposing (view)
 
 
 main : Program () Model Msg
@@ -14,31 +17,6 @@ main =
         }
 
 
-type alias Model =
-    ()
-
-
-type Msg
-    = NoOp
-
-
 init : () -> ( Model, Cmd Msg )
 init _ =
     ( (), Cmd.none )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        NoOp ->
-            ( model, Cmd.none )
-
-
-view : Model -> Html Msg
-view _ =
-    div [] [ text "Hello, Elm!" ]
