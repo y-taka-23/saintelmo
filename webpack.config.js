@@ -16,6 +16,14 @@ module.exports = {
             {
                 test: /\.elm$/,
                 loader: 'elm-webpack-loader'
+            },
+            {
+                test: /\.scss$/,
+                loader: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
             }
         ]
     },
