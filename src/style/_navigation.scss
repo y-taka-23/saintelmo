@@ -1,4 +1,9 @@
 .navigation {
+    display: flex;
+    flex-direction: column;
+
     width: 200px;
-    background-color: #aee;
+
+    background-color: #000;
+    color: #fff;
 }
