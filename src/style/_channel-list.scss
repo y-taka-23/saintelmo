@@ -1,3 +1,37 @@
 .channel-list {
     flex: 1;
+
+    &__header {
+        padding-top: 20px;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+    }
+
+    %__name {
+        padding-top: 10px;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+
+        cursor: pointer;
+
+        &::before {
+            content: "# ";
+        }
+    }
+
+    &__name {
+        @extend %__name;
+
+        &:hover {
+            background-color: #333;
+        }
+
+        &--active {
+            @extend %__name;
+            background-color: #fff;
+            color: #000;
+        }
+    }
 }
