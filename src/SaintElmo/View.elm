@@ -1,6 +1,6 @@
 module SaintElmo.View exposing (view)
 
-import Html exposing (Html, div, h2, li, text, ul)
+import Html exposing (Html, div, h1, h2, li, p, text, ul)
 import Html.Attributes exposing (class)
 import SaintElmo.Model exposing (Model, Msg)
 
@@ -29,7 +29,10 @@ view _ =
             ]
         , div [ class "contents" ]
             [ div [ class "channel-header" ]
-                [ text "Cannel Header" ]
+                [ h1 [ class "channel-header__title" ] [ text "adipiscing" ]
+                , p [ class "channel-header__description" ]
+                    [ text "Excepteur sint occaecat cupidatat non proident." ]
+                ]
             , div [ class "channel-body" ]
                 [ div [ class "chat" ]
                     [ div [ class "history" ] [ text "History" ]
