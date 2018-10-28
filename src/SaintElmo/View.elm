@@ -1,6 +1,6 @@
 module SaintElmo.View exposing (view)
 
-import Html exposing (Html, div, h1, h2, li, p, text, ul)
+import Html exposing (Html, button, div, h1, h2, input, li, p, text, ul)
 import Html.Attributes exposing (class)
 import SaintElmo.Model exposing (Model, Msg)
 
@@ -36,7 +36,10 @@ view _ =
             , div [ class "channel-body" ]
                 [ div [ class "chat" ]
                     [ div [ class "history" ] [ text "History" ]
-                    , div [ class "console" ] [ text "Console" ]
+                    , div [ class "console" ]
+                        [ button [ class "console__button" ] []
+                        , input [ class "console__input" ] []
+                        ]
                     ]
                 , div [ class "member-list" ]
                     [ text "Member List" ]
