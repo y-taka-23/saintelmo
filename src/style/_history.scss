@@ -1,3 +1,6 @@
 .history {
+    display: flex;
+    flex-direction: column-reverse;
+    
     flex: 1;
 }

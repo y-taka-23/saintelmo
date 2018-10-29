@@ -1,0 +1,19 @@
+.message-contents {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.25rem;
+
+    &__author {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        font-weight: bold;
+    }
+
+    &__text {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+}

@@ -1,7 +1,7 @@
 module SaintElmo.View exposing (view)
 
-import Html exposing (Html, button, div, h1, h2, input, li, p, text, ul)
-import Html.Attributes exposing (class)
+import Html exposing (Html, button, div, h1, h2, img, input, li, p, text, ul)
+import Html.Attributes exposing (class, src)
 import SaintElmo.Model exposing (Model, Msg)
 
 
@@ -35,7 +35,43 @@ view _ =
                 ]
             , div [ class "channel-body" ]
                 [ div [ class "chat" ]
-                    [ div [ class "history" ] [ text "History" ]
+                    [ ul [ class "history" ]
+                        [ li [ class "message" ]
+                            [ img [ class "message__avatar", src "default_avatar.png" ] []
+                            , div [ class "message-contents" ]
+                                [ div [ class "message-contents__author" ] [ text "voluptate" ]
+                                , p [ class "message-contents__text" ] [ text "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ]
+                                ]
+                            ]
+                        , li [ class "message" ]
+                            [ img [ class "message__avatar", src "default_avatar.png" ] []
+                            , div [ class "message-contents" ]
+                                [ div [ class "message-contents__author" ] [ text "ut_labore" ]
+                                , p [ class "message-contents__text" ] [ text "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." ]
+                                ]
+                            ]
+                        , li [ class "message" ]
+                            [ img [ class "message__avatar", src "default_avatar.png" ] []
+                            , div [ class "message-contents" ]
+                                [ div [ class "message-contents__author" ] [ text "dolor" ]
+                                , p [ class "message-contents__text" ] [ text "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui." ]
+                                ]
+                            ]
+                        , li [ class "message" ]
+                            [ img [ class "message__avatar", src "default_avatar.png" ] []
+                            , div [ class "message-contents" ]
+                                [ div [ class "message-contents__author" ] [ text "voluptate" ]
+                                , p [ class "message-contents__text" ] [ text "Sed do eiusmod tempor incididunt?" ]
+                                ]
+                            ]
+                        , li [ class "message" ]
+                            [ img [ class "message__avatar", src "default_avatar.png" ] []
+                            , div [ class "message-contents" ]
+                                [ div [ class "message-contents__author" ] [ text "sint" ]
+                                , p [ class "message-contents__text" ] [ text "Ut labore et dolore magna aliqua!" ]
+                                ]
+                            ]
+                        ]
                     , div [ class "console" ]
                         [ button [ class "console__button" ] []
                         , input [ class "console__input" ] []
