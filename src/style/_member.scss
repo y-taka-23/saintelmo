@@ -1,0 +1,23 @@
+.member {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    &__avatar {
+        width: 30px;
+        height: 30px;
+        max-width: 30px;
+        max-height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+    }
+
+    &__name {
+        padding-left: 10px;
+    }
+}
