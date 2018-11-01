@@ -19,4 +19,4 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( (), Cmd.none )
+    ( SaintElmo.Model.init, Cmd.none )

@@ -6,108 +6,97 @@ import SaintElmo.Model exposing (Model, Msg)
 
 
 view : Model -> Html Msg
-view _ =
+view model =
     div [ class "page" ]
         [ div [ class "navigation" ]
-            [ div [ class "login-user" ]
-                [ img [ class "login-user__avatar", src "default_avatar.png" ] []
-                , div [ class "login-user__name" ] [ text "voluptate" ]
-                ]
-            , div [ class "channel-list" ]
-                [ h2 [ class "channel-list__header" ] [ text "CHANNELS" ]
-                , ul []
-                    [ li [ class "channel-list__name" ] [ text "lorem_ipsum" ]
-                    , li [ class "channel-list__name" ] [ text "dolor" ]
-                    , li [ class "channel-list__name" ] [ text "sit_amet" ]
-                    , li [ class "channel-list__name" ] [ text "consectetur" ]
-                    , li [ class "channel-list__name--active" ] [ text "adipiscing" ]
-                    , li [ class "channel-list__name" ] [ text "elit_sed" ]
-                    , li [ class "channel-list__name" ] [ text "do_eiusmod" ]
-                    , li [ class "channel-list__name" ] [ text "tempor" ]
-                    , li [ class "channel-list__name" ] [ text "incididunt" ]
-                    , li [ class "channel-list__name" ] [ text "ut_labore" ]
-                    ]
-                ]
+            [ loginUser model
+            , channelList model
             ]
         , div [ class "contents" ]
-            [ div [ class "channel-header" ]
-                [ h1 [ class "channel-header__title" ] [ text "adipiscing" ]
-                , p [ class "channel-header__description" ]
-                    [ text "Excepteur sint occaecat cupidatat non proident." ]
-                ]
+            [ channelHeader model
             , div [ class "channel-body" ]
                 [ div [ class "chat" ]
-                    [ ul [ class "history" ]
-                        [ li [ class "message" ]
-                            [ img [ class "message__avatar", src "default_avatar.png" ] []
-                            , div [ class "message-contents" ]
-                                [ div [ class "message-contents__author" ] [ text "voluptate" ]
-                                , p [ class "message-contents__text" ] [ text "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ]
-                                ]
-                            ]
-                        , li [ class "message" ]
-                            [ img [ class "message__avatar", src "default_avatar.png" ] []
-                            , div [ class "message-contents" ]
-                                [ div [ class "message-contents__author" ] [ text "ut_labore" ]
-                                , p [ class "message-contents__text" ] [ text "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." ]
-                                ]
-                            ]
-                        , li [ class "message" ]
-                            [ img [ class "message__avatar", src "default_avatar.png" ] []
-                            , div [ class "message-contents" ]
-                                [ div [ class "message-contents__author" ] [ text "dolor" ]
-                                , p [ class "message-contents__text" ] [ text "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui." ]
-                                ]
-                            ]
-                        , li [ class "message" ]
-                            [ img [ class "message__avatar", src "default_avatar.png" ] []
-                            , div [ class "message-contents" ]
-                                [ div [ class "message-contents__author" ] [ text "voluptate" ]
-                                , p [ class "message-contents__text" ] [ text "Sed do eiusmod tempor incididunt?" ]
-                                ]
-                            ]
-                        , li [ class "message" ]
-                            [ img [ class "message__avatar", src "default_avatar.png" ] []
-                            , div [ class "message-contents" ]
-                                [ div [ class "message-contents__author" ] [ text "sint" ]
-                                , p [ class "message-contents__text" ] [ text "Ut labore et dolore magna aliqua!" ]
-                                ]
-                            ]
-                        ]
+                    [ history model
                     , div [ class "console" ]
                         [ button [ class "console__button" ] []
                         , input [ class "console__input" ] []
                         ]
                     ]
-                , div [ class "member-list" ]
-                    [ h2 [ class "member-list__header" ] [ text "MEMBERS" ]
-                    , ul []
-                        [ li [ class "member" ]
-                            [ img [ class "member__avatar", src "default_avatar.png" ] []
-                            , div [ class "member__name" ] [ text "sit_amet" ]
-                            ]
-                        , li [ class "member" ]
-                            [ img [ class "member__avatar", src "default_avatar.png" ] []
-                            , div [ class "member__name" ] [ text "consectetur" ]
-                            ]
-                        , li [ class "member" ]
-                            [ img [ class "member__avatar", src "default_avatar.png" ] []
-                            , div [ class "member__name" ] [ text "elit_sed" ]
-                            ]
-                        , li [ class "member" ]
-                            [ img [ class "member__avatar", src "default_avatar.png" ] []
-                            , div [ class "member__name" ] [ text "do_eiusmod" ]
-                            ]
-                        , li [ class "member" ]
-                            [ img [ class "member__avatar", src "default_avatar.png" ] []
-                            , div [ class "member__name" ] [ text "tempor" ]
-                            ]
-                        , li [ class "member" ]
-                            [ img [ class "member__avatar", src "default_avatar.png" ] []
-                            , div [ class "member__name" ] [ text "incididunt" ]
-                            ]
-                        ]
-                    ]
+                , memberList model
                 ]
             ]
+        ]
+
+
+loginUser : Model -> Html Msg
+loginUser model =
+    let
+        ( avatar, name ) =
+            case model.loginUser of
+                Just user ->
+                    ( user.avatar, user.name )
+
+                Nothing ->
+                    ( "Anonymous", "default_avatar.png" )
+    in
+    div [ class "login-user" ]
+        [ img [ class "login-user__avatar", src avatar ] []
+        , div [ class "login-user__name" ] [ text name ]
+        ]
+
+
+channelList : Model -> Html Msg
+channelList model =
+    let
+        name channel =
+            if channel.name == model.currentChannel.name then
+                li [ class "channel-list__name--active" ] [ text channel.name ]
+
+            else
+                li [ class "channel-list__name" ] [ text channel.name ]
+    in
+    div [ class "channel-list" ]
+        [ h2 [ class "channel-list__header" ] [ text "CHANNELS" ]
+        , ul [] <| List.map name model.channels
+        ]
+
+
+channelHeader : Model -> Html Msg
+channelHeader model =
+    div [ class "channel-header" ]
+        [ h1 [ class "channel-header__title" ]
+            [ text model.currentChannel.name ]
+        , p [ class "channel-header__description" ]
+            [ text model.currentChannel.description ]
+        ]
+
+
+history : Model -> Html Msg
+history model =
+    let
+        message m =
+            li [ class "message" ]
+                [ img [ class "message__avatar", src m.author.avatar ] []
+                , div [ class "message-contents" ]
+                    [ div [ class "message-contents__author" ]
+                        [ text m.author.name ]
+                    , p [ class "message-contents__text" ] [ text m.text ]
+                    ]
+                ]
+    in
+    ul [ class "history" ] <| List.map message model.messages
+
+
+memberList : Model -> Html Msg
+memberList model =
+    let
+        member m =
+            li [ class "member" ]
+                [ img [ class "member__avatar", src m.avatar ] []
+                , div [ class "member__name" ] [ text m.name ]
+                ]
+    in
+    div [ class "member-list" ]
+        [ h2 [ class "member-list__header" ] [ text "MEMBERS" ]
+        , ul [] <| List.map member model.members
         ]
