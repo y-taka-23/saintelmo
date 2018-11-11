@@ -7,7 +7,27 @@ import SaintElmo.Model exposing (Model, Msg)
 
 view : Model -> Html Msg
 view model =
-    div [ class "page" ]
+    case model.loginUser of
+        Nothing ->
+            loginPage
+
+        Just _ ->
+            mainPage model
+
+
+loginPage : Html Msg
+loginPage =
+    div [ class "login-page" ]
+        [ div [ class "login-form" ]
+            [ h1 [ class "login-form__logo" ] [ text "SaintElmo" ]
+            , button [ class "login-form__google" ] [ text "Login with Google" ]
+            ]
+        ]
+
+
+mainPage : Model -> Html Msg
+mainPage model =
+    div [ class "main-page" ]
         [ div [ class "navigation" ]
             [ loginUser model
             , channelList model
@@ -39,10 +59,10 @@ loginUser model =
                 Nothing ->
                     ( "Anonymous", "default_avatar.png" )
     in
-    div [ class "login-user" ]
-        [ img [ class "login-user__avatar", src avatar ] []
-        , div [ class "login-user__name" ] [ text name ]
-        ]
+        div [ class "login-user" ]
+            [ img [ class "login-user__avatar", src avatar ] []
+            , div [ class "login-user__name" ] [ text name ]
+            ]
 
 
 channelList : Model -> Html Msg
@@ -51,14 +71,13 @@ channelList model =
         name channel =
             if channel.name == model.currentChannel.name then
                 li [ class "channel-list__name--active" ] [ text channel.name ]
-
             else
                 li [ class "channel-list__name" ] [ text channel.name ]
     in
-    div [ class "channel-list" ]
-        [ h2 [ class "channel-list__header" ] [ text "CHANNELS" ]
-        , ul [] <| List.map name model.channels
-        ]
+        div [ class "channel-list" ]
+            [ h2 [ class "channel-list__header" ] [ text "CHANNELS" ]
+            , ul [] <| List.map name model.channels
+            ]
 
 
 channelHeader : Model -> Html Msg
@@ -84,7 +103,7 @@ history model =
                     ]
                 ]
     in
-    ul [ class "history" ] <| List.map message model.messages
+        ul [ class "history" ] <| List.map message model.messages
 
 
 memberList : Model -> Html Msg
@@ -96,7 +115,7 @@ memberList model =
                 , div [ class "member__name" ] [ text m.name ]
                 ]
     in
-    div [ class "member-list" ]
-        [ h2 [ class "member-list__header" ] [ text "MEMBERS" ]
-        , ul [] <| List.map member model.members
-        ]
+        div [ class "member-list" ]
+            [ h2 [ class "member-list__header" ] [ text "MEMBERS" ]
+            , ul [] <| List.map member model.members
+            ]
