@@ -1,11 +1,13 @@
-module SaintElmo.Model exposing (Model, Msg(..), User, init)
+module SaintElmo.Model exposing (Message, Model, Msg(..), User, init)
 
 
 type Msg
-    = LogIn
+    = NoOp -- TODO: for error handling
+    | LogIn
     | LogOut
     | SetLoginUser User
     | UnsetLoginUser
+    | AddMessage Message
 
 
 init : Model
@@ -27,38 +29,7 @@ init =
         { name = "adipiscing"
         , description = "Excepteur sint occaecat cupidatat non proident."
         }
-    , messages =
-        [ { author =
-                { name = "valuptate"
-                , avatar = "default_avatar.png"
-                }
-          , text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          }
-        , { author =
-                { name = "ut_labore"
-                , avatar = "default_avatar.png"
-                }
-          , text = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-          }
-        , { author =
-                { name = "dolor"
-                , avatar = "default_avatar.png"
-                }
-          , text = "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui."
-          }
-        , { author =
-                { name = "voluptate"
-                , avatar = "default_avatar.png"
-                }
-          , text = "Sed do eiusmod tempor incididunt?"
-          }
-        , { author =
-                { name = "sint"
-                , avatar = "default_avatar.png"
-                }
-          , text = "Ut labore et dolore magna aliqua!"
-          }
-        ]
+    , messages = []
     , members =
         [ { name = "sit_amet", avatar = "default_avatar.png" }
         , { name = "consectetur", avatar = "default_avatar.png" }

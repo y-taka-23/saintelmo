@@ -8,6 +8,9 @@ import SaintElmo.Port as Port
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        NoOp ->
+            ( model, Cmd.none )
+
         LogIn ->
             ( model, logIn )
 
@@ -19,6 +22,9 @@ update msg model =
 
         UnsetLoginUser ->
             ( { model | loginUser = Nothing }, Cmd.none )
+
+        AddMessage message ->
+            ( { model | messages = message :: model.messages }, Cmd.none )
 
 
 logIn : Cmd msg

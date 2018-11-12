@@ -1,5 +1,6 @@
 port module SaintElmo.Port exposing
-    ( logIn
+    ( addMessage
+    , logIn
     , logOut
     , setLoginUser
     , unsetLoginUser
@@ -19,3 +20,6 @@ port setLoginUser : (D.Value -> msg) -> Sub msg
 
 
 port unsetLoginUser : (D.Value -> msg) -> Sub msg
+
+
+port addMessage : (D.Value -> msg) -> Sub msg

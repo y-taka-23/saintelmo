@@ -9,6 +9,7 @@ const { Elm } = require('./Main.elm');
 const config = {
     apiKey: "<API_KEY>",
     authDomain: "<PROJECT_ID>.firebaseapp.com",
+    databaseURL: "https://<PROJECT_ID>.firebaseio.com",
     projectId: "<PROJECT_ID>",
 };
 firebase.initializeApp(config);
@@ -36,4 +37,9 @@ firebase.auth().onAuthStateChanged((user) => {
     } else {
         app.ports.unsetLoginUser.send();
     }
+});
+
+firebase.database().ref('/messages/adipiscing')
+        .limitToLast(12).on('child_added', (snap) => {
+    app.ports.addMessage.send(snap.val());
 });
