@@ -1,13 +1,16 @@
-module SaintElmo.Model exposing (Model, Msg(..), init)
+module SaintElmo.Model exposing (Model, Msg(..), User, init)
 
 
 type Msg
-    = NoOp
+    = LogIn
+    | LogOut
+    | SetLoginUser User
+    | UnsetLoginUser
 
 
 init : Model
 init =
-    { loginUser = Just { name = "voluptate", avatar = "default_avatar.png" }
+    { loginUser = Nothing
     , channels =
         [ { name = "lorem_ipsum", description = "" }
         , { name = "dolor", description = "" }
