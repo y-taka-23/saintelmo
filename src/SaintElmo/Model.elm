@@ -8,6 +8,8 @@ type Msg
     | SetLoginUser User
     | UnsetLoginUser
     | AddMessage Message
+    | SendMessage
+    | CaptureConsole String
 
 
 init : Model
@@ -30,6 +32,7 @@ init =
         , description = "Excepteur sint occaecat cupidatat non proident."
         }
     , messages = []
+    , textOnConsole = ""
     , members =
         [ { name = "sit_amet", avatar = "default_avatar.png" }
         , { name = "consectetur", avatar = "default_avatar.png" }
@@ -46,6 +49,7 @@ type alias Model =
     , channels : List Channel
     , currentChannel : Channel
     , messages : List Message
+    , textOnConsole : String
     , members : List User
     }
 

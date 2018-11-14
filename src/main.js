@@ -43,3 +43,8 @@ firebase.database().ref('/messages/adipiscing')
         .limitToLast(12).on('child_added', (snap) => {
     app.ports.addMessage.send(snap.val());
 });
+
+
+app.ports.sendMessage.subscribe((message) => {
+    firebase.database().ref('/messages/adipiscing').push(message);
+});

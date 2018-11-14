@@ -1,10 +1,12 @@
-port module SaintElmo.Port exposing
-    ( addMessage
-    , logIn
-    , logOut
-    , setLoginUser
-    , unsetLoginUser
-    )
+port module SaintElmo.Port
+    exposing
+        ( addMessage
+        , logIn
+        , logOut
+        , sendMessage
+        , setLoginUser
+        , unsetLoginUser
+        )
 
 import Json.Decode as D
 import Json.Encode as E
@@ -23,3 +25,6 @@ port unsetLoginUser : (D.Value -> msg) -> Sub msg
 
 
 port addMessage : (D.Value -> msg) -> Sub msg
+
+
+port sendMessage : E.Value -> Cmd msg

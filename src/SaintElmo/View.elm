@@ -1,8 +1,23 @@
 module SaintElmo.View exposing (view)
 
-import Html exposing (Html, button, div, h1, h2, img, input, li, p, text, ul)
-import Html.Attributes exposing (class, src)
-import Html.Events exposing (onClick)
+import Json.Decode as Json
+import Html
+    exposing
+        ( Attribute
+        , Html
+        , button
+        , div
+        , h1
+        , h2
+        , img
+        , input
+        , li
+        , p
+        , text
+        , ul
+        )
+import Html.Attributes exposing (class, placeholder, src, value)
+import Html.Events exposing (keyCode, on, onClick, onInput)
 import SaintElmo.Model exposing (Model, Msg(..))
 
 
@@ -41,13 +56,36 @@ mainPage model =
                     [ history model
                     , div [ class "console" ]
                         [ button [ class "console__button" ] []
-                        , input [ class "console__input" ] []
+                        , input
+                            [ class "console__input"
+                            , placeholder "Press enter to send a message"
+                            , value model.textOnConsole
+                            , onInput CaptureConsole
+                            , onEnterKeyUp SendMessage
+                            ]
+                            []
                         ]
                     ]
                 , memberList model
                 ]
             ]
         ]
+
+
+onEnterKeyUp : Msg -> Attribute Msg
+onEnterKeyUp msg =
+    onKeyUp
+        (\k ->
+            if k == 13 then
+                msg
+            else
+                NoOp
+        )
+
+
+onKeyUp : (Int -> msg) -> Attribute msg
+onKeyUp tagger =
+    on "keyup" <| Json.map tagger keyCode
 
 
 loginUser : Model -> Html Msg
@@ -62,10 +100,10 @@ loginUser model =
                 Nothing ->
                     "default_avatar.png"
     in
-    div [ class "login-user" ]
-        [ img [ class "login-user__avatar", src avatar ] []
-        , div [ class "login-user__name", onClick LogOut ] [ text "Logout" ]
-        ]
+        div [ class "login-user" ]
+            [ img [ class "login-user__avatar", src avatar ] []
+            , div [ class "login-user__name", onClick LogOut ] [ text "Logout" ]
+            ]
 
 
 channelList : Model -> Html Msg
@@ -74,14 +112,13 @@ channelList model =
         name channel =
             if channel.name == model.currentChannel.name then
                 li [ class "channel-list__name--active" ] [ text channel.name ]
-
             else
                 li [ class "channel-list__name" ] [ text channel.name ]
     in
-    div [ class "channel-list" ]
-        [ h2 [ class "channel-list__header" ] [ text "CHANNELS" ]
-        , ul [] <| List.map name model.channels
-        ]
+        div [ class "channel-list" ]
+            [ h2 [ class "channel-list__header" ] [ text "CHANNELS" ]
+            , ul [] <| List.map name model.channels
+            ]
 
 
 channelHeader : Model -> Html Msg
@@ -107,7 +144,7 @@ history model =
                     ]
                 ]
     in
-    ul [ class "history" ] <| List.map message model.messages
+        ul [ class "history" ] <| List.map message model.messages
 
 
 memberList : Model -> Html Msg
@@ -119,7 +156,7 @@ memberList model =
                 , div [ class "member__name" ] [ text m.name ]
                 ]
     in
-    div [ class "member-list" ]
-        [ h2 [ class "member-list__header" ] [ text "MEMBERS" ]
-        , ul [] <| List.map member model.members
-        ]
+        div [ class "member-list" ]
+            [ h2 [ class "member-list__header" ] [ text "MEMBERS" ]
+            , ul [] <| List.map member model.members
+            ]
