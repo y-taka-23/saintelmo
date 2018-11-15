@@ -7,7 +7,7 @@ import SaintElmo.Port as Port
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Sub.batch [ setLoginUser, unsetLoginUser, addMessage ]
+    Sub.batch [ setLoginUser, unsetLoginUser, receiveMessage ]
 
 
 setLoginUser : Sub Msg
@@ -22,7 +22,7 @@ setLoginUser =
                     -- TODO: show the error as a toast
                     NoOp
     in
-    Port.setLoginUser handler
+        Port.setLoginUser handler
 
 
 userDecoder : Json.Decoder User
@@ -37,19 +37,19 @@ unsetLoginUser =
     Port.unsetLoginUser <| \_ -> UnsetLoginUser
 
 
-addMessage : Sub Msg
-addMessage =
+receiveMessage : Sub Msg
+receiveMessage =
     let
         handler v =
             case Json.decodeValue messageDecoder v of
                 Ok message ->
-                    AddMessage message
+                    ReceiveMessage message
 
                 Err _ ->
                     -- TODO: handle the error
                     NoOp
     in
-    Port.addMessage handler
+        Port.receiveMessage handler
 
 
 messageDecoder : Json.Decoder Message

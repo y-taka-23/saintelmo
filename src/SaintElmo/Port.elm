@@ -1,8 +1,8 @@
 port module SaintElmo.Port
     exposing
-        ( addMessage
-        , logIn
+        ( logIn
         , logOut
+        , receiveMessage
         , sendMessage
         , setLoginUser
         , unsetLoginUser
@@ -24,7 +24,7 @@ port setLoginUser : (D.Value -> msg) -> Sub msg
 port unsetLoginUser : (D.Value -> msg) -> Sub msg
 
 
-port addMessage : (D.Value -> msg) -> Sub msg
+port receiveMessage : (D.Value -> msg) -> Sub msg
 
 
 port sendMessage : E.Value -> Cmd msg

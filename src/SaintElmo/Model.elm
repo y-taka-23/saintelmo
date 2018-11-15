@@ -7,7 +7,7 @@ type Msg
     | LogOut
     | SetLoginUser User
     | UnsetLoginUser
-    | AddMessage Message
+    | ReceiveMessage Message
     | SendMessage
     | CaptureConsole String
 

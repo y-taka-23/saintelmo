@@ -23,7 +23,7 @@ update msg model =
         UnsetLoginUser ->
             ( { model | loginUser = Nothing }, Cmd.none )
 
-        AddMessage message ->
+        ReceiveMessage message ->
             ( { model | messages = message :: model.messages }, Cmd.none )
 
         SendMessage ->
