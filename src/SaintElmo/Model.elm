@@ -1,4 +1,4 @@
-module SaintElmo.Model exposing (Message, Model, Msg(..), User, init)
+module SaintElmo.Model exposing (Channel, Message, Model, Msg(..), User, init)
 
 
 type Msg
@@ -7,6 +7,7 @@ type Msg
     | LogOut
     | SetLoginUser User
     | UnsetLoginUser
+    | ReceiveChannel Channel
     | ReceiveMessage Message
     | SendMessage
     | CaptureConsole String
@@ -15,18 +16,7 @@ type Msg
 init : Model
 init =
     { loginUser = Nothing
-    , channels =
-        [ { name = "lorem_ipsum", description = "" }
-        , { name = "dolor", description = "" }
-        , { name = "sit_amet", description = "" }
-        , { name = "consectetur", description = "" }
-        , { name = "adipiscing", description = "" }
-        , { name = "elit_sed", description = "" }
-        , { name = "do_eiusmod", description = "" }
-        , { name = "tempor", description = "" }
-        , { name = "incididunt", description = "" }
-        , { name = "ut_labore", description = "" }
-        ]
+    , channels = []
     , currentChannel =
         { name = "adipiscing"
         , description = "Excepteur sint occaecat cupidatat non proident."

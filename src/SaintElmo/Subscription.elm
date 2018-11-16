@@ -1,13 +1,13 @@
 module SaintElmo.Subscription exposing (subscriptions)
 
 import Json.Decode as Json
-import SaintElmo.Model exposing (Message, Model, Msg(..), User)
+import SaintElmo.Model exposing (Channel, Message, Model, Msg(..), User)
 import SaintElmo.Port as Port
 
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Sub.batch [ setLoginUser, unsetLoginUser, receiveMessage ]
+    Sub.batch [ setLoginUser, unsetLoginUser, receiveMessage, receiveChannel ]
 
 
 setLoginUser : Sub Msg
@@ -35,6 +35,28 @@ userDecoder =
 unsetLoginUser : Sub Msg
 unsetLoginUser =
     Port.unsetLoginUser <| \_ -> UnsetLoginUser
+
+
+receiveChannel : Sub Msg
+receiveChannel =
+    let
+        handler v =
+            case Json.decodeValue channelDecoder v of
+                Ok chan ->
+                    ReceiveChannel chan
+
+                Err _ ->
+                    -- TODO: handle the error
+                    NoOp
+    in
+        Port.receiveChannel handler
+
+
+channelDecoder : Json.Decoder Channel
+channelDecoder =
+    Json.map2 Channel
+        (Json.field "name" Json.string)
+        (Json.field "description" Json.string)
 
 
 receiveMessage : Sub Msg

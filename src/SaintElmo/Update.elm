@@ -23,6 +23,9 @@ update msg model =
         UnsetLoginUser ->
             ( { model | loginUser = Nothing }, Cmd.none )
 
+        ReceiveChannel chan ->
+            ( { model | channels = chan :: model.channels }, Cmd.none )
+
         ReceiveMessage message ->
             ( { model | messages = message :: model.messages }, Cmd.none )
 

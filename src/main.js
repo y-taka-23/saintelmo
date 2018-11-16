@@ -39,6 +39,10 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 });
 
+firebase.database().ref('/channels').on('child_added', (snap) => {
+    app.ports.receiveChannel.send(snap.val());
+});
+
 firebase.database().ref('/messages/adipiscing')
         .limitToLast(12).on('child_added', (snap) => {
     app.ports.receiveMessage.send(snap.val());

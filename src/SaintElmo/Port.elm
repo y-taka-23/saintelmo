@@ -3,6 +3,7 @@ port module SaintElmo.Port
         ( logIn
         , logOut
         , receiveMessage
+        , receiveChannel
         , sendMessage
         , setLoginUser
         , unsetLoginUser
@@ -22,6 +23,9 @@ port setLoginUser : (D.Value -> msg) -> Sub msg
 
 
 port unsetLoginUser : (D.Value -> msg) -> Sub msg
+
+
+port receiveChannel : (D.Value -> msg) -> Sub msg
 
 
 port receiveMessage : (D.Value -> msg) -> Sub msg
